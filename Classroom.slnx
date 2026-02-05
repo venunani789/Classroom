@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/gateway/">
+    <Project Path="ApiGateway/ApiGateway.csproj" Id="cece3687-0e01-470f-92f0-3beec7f49e1b" />
+  </Folder>
+  <Folder Name="/Infra/" />
+  <Folder Name="/Services/">
+    <Project Path="ClassServices.Api/ClassServices.Api.csproj" Id="e9233b0f-c608-4429-b266-40678d0d0c2f" />
+    <Project Path="IdentityServices.Api/IdentityServices.Api.csproj" Id="ad5ce1db-ff0e-4fcb-8360-8f4f8426b2c0" />
+    <Project Path="StudentServices.Api/StudentServices.Api.csproj" Id="278d5ae6-af9d-4150-9a19-ce2fed514061" />
+    <Project Path="TaskServices/TaskServices.csproj" Id="e554adbc-b901-4150-bd0f-45dc33562000" />
+  </Folder>
+  <Folder Name="/Shared/" />
+  <Project Path="Classroom/Classroom.csproj" />
+</Solution>
