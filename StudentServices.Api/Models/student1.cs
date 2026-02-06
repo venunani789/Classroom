@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 namespace StudentServices.Api.Models
 {
     public class student1
     {
-
+         
             public int Id { get; set; }
             [Required,StringLength(100)]   
             public string Name { get; set; } = "";

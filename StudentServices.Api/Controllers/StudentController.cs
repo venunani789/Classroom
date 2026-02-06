@@ -1,41 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentServices.Api.Models;
+using StudentServices.Api.Models.Data;
+using System.Data.Common;
 
 
 namespace StudentServices.Api.Controllers
 {
     public class StudentController : Controller
     {
-        private static readonly List<student1> _students = new();
+        private readonly AppDbContext _db;
 
-        [HttpGet]
-        public IActionResult  Index()
+        public StudentController(AppDbContext db)
         {
-            return View(_students);
+            _db = db;
         }
+
+        //(in-memory only) private static readonly List<student1> _students = new();
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var students = await _db.Students.AsNoTracking().ToListAsync();
+            return View(students);
         }
+
+        
+        [HttpGet]
+        public IActionResult Create() => View();
         
         [HttpPost]
-        public IActionResult Create(student1 student)
+        public async Task<IActionResult> Create(student1 student)
         {
-            _students.Add(student);
-           // if (!ModelState.IsValid)
-              //  return View(student);
-
-            // For now, just show a success page (later we’ll save to DB)
-            // return RedirectToAction("Details", student);
+            if (!ModelState.IsValid) return View(student);
+            _db.Students.Add(student);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+       
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id < 0 || id >= _students.Count) return NotFound();
-            return View(_students[id]);
+            var student = await _db.Students.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
+            //if (id < 0 || id >= student1.Count) return NotFound();
+            if (student == null)
+                return NotFound();
+            return View(student);
         }
     }
 }
